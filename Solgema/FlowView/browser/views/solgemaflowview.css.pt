@@ -1,0 +1,258 @@
+/* <dtml-with base_properties> (do not remove this :) */
+/* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
+
+#flowtabs {
+    display:none;
+}
+
+.flowEnabled #flowtabs {
+    display:block;
+}
+
+.flowEnabled div.page {
+    clear:both;
+}
+
+.flowEnabled .pageContent {
+    float:left;
+    position:relative;
+}
+
+
+.flowInitialized div.items,
+.flowInitialized div.page,
+.flowInitialized div.pageContent {
+    height:100%;
+    position:relative;
+}
+
+div.pageContent {
+    margin-right:0px;
+    overflow:hidden;
+}
+
+div.page.multipages {
+    margin-right:15px;
+}
+
+.multipages div.pageContent {
+    margin-top:5px;
+    margin-right:10px;
+}
+
+.flowInitialized div.pageContent .item {
+    padding:3px;
+}
+
+.custom .tileFooter {
+    display:block;
+    clear:both;
+}
+
+.flowInitialized .custom .tileFooter {
+    display:block;
+    position:absolute;
+    bottom:0px;
+    right:0px;
+    margin-bottom:0;
+}
+
+.flowInitialized div.pageContent.first {
+    margin-left:0px;
+}
+
+.flowInitialized div.pageContent.last {
+    margin-right:0px;
+}
+
+.flowEnabled.useFlowtabs .googleMapLocation {
+    display:none;
+}
+
+.flowEnabled.useFlowtabs .googleMapLocation.googleMapActive {
+    display:block;
+}
+
+.flowEnabled,
+.flowEnabled #flow-container {
+    position:relative;
+}
+
+.flowEnabled #flowpanes_container {
+    clear:both;
+}
+
+.showBorder #flowpanes_container {
+    border:1px solid &dtml-SColor03;;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    background:white url(&dtml-portal_url;/flowpanes_background.png) repeat-x left bottom;
+}
+
+.flowEnabled #flowpanes {
+    position:relative;
+    overflow:hidden;
+    clear:both;
+}
+
+.flowEnabled.backnext_enabled #flowpanes_container {
+    margin:0 20px;
+}
+
+/* override single pane */
+.flowEnabled #flowpanes div.content_item,
+.flowEnabled #flowpanes div.collage-item,
+.flowEnabled #flowpanes div.page {
+    float:left !important;
+    clear:none !important;
+    display:block;
+    width:100%;
+}
+
+/* our additional wrapper element for the items */
+.flowEnabled #flowpanes .items {
+    width:20000em;
+    position:absolute;
+    clear:both;
+    margin:0;
+    padding:0;
+}
+
+.flowEnabled #flowpanes .less,
+.flowEnabled #flowpanes .less a {
+    color:#999 !important;
+}
+
+.flowEnabled div.title #flowtabs ul,
+.flowEnabled div.description #flowtabs ul  {
+    float:left;
+    margin:0px 15px;
+}
+
+.flowEnabled div.title.backnext_enabled #flowtabs ul,
+.flowEnabled div.description.backnext_enabled #flowtabs ul  {
+    margin:0px 30px;
+}
+
+.flowEnabled #flowtabs li {
+    display:block;
+    float:left;
+    list-style-type:none;
+    margin:0 5px 0 0;
+}
+
+.flowEnabled div.title #flowtabs li,
+.flowEnabled div.description #flowtabs li {
+    margin:0 5px 0 0;
+}
+
+#flowtabs li a,
+div.flowEnabled.title #flowtabs.top li a,
+div.flowEnabled.description #flowtabs.top li a {
+    display:block;
+    border-left:1px solid &dtml-SColor03;;
+    border-right:1px solid &dtml-SColor03;;
+    border-top:1px solid &dtml-SColor03;;
+    padding:3px 6px;
+    -moz-border-radius-topleft:2px;
+    -moz-border-radius-topright:2px;
+    -webkit-border-top-left-radius:2px;
+    -webkit-border-top-right-radius:2px;
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+    border-bottom:none;
+}
+
+div.flowEnabled.title #flowtabs.bottom li a,
+div.flowEnabled.description #flowtabs.bottom li a {
+    display:block;
+    border-left:1px solid &dtml-SColor03;;
+    border-right:1px solid &dtml-SColor03;;
+    border-bottom:1px solid &dtml-SColor03;;
+    padding:3px 6px;
+    -moz-border-radius-bottomleft:2px;
+    -moz-border-radius-bottomright:2px;
+    -webkit-border-bottom-left-radius:2px;
+    -webkit-border-bottom-right-radius:2px;
+    border-bottom-left-radius:2px;
+    border-bottom-right-radius:2px;
+}
+
+div.flowEnabled.slidetabs #flowtabs {
+    float:left;
+    margin-left:50%;
+}
+
+div.flowEnabled.slidetabs #flowtabs ul  {
+    float:left;
+    margin:0 0 0 -50%;
+}
+
+div.flowEnabled.slidetabs #flowtabs li {
+    margin:0;
+}
+
+div.flowEnabled.slidetabs #flowtabs li a {
+    width:8px;
+    height:8px;
+    float:left;
+    margin:3px;
+    background:url(&dtml-portal_url;/++resource++solgemaflowview.resources/navigator.png) 0 0 no-repeat;
+    display:block;
+    font-size:1px;
+    border:none;
+    padding:0;	
+}
+
+div.flowEnabled.slidetabs #flowtabs li a:hover {
+	background-position:0 -8px;      
+}
+
+div.flowEnabled.slidetabs #flowtabs li a.current {
+	background-position:0 -16px;     
+} 
+
+.flowEnabled #flowtabs li a.current { 
+    background:&dtml-SColor06; none scroll repeat-x bottom left;
+    color: &dtml-SColor01;;
+}
+
+/* prev and next buttons */
+.flowEnabled .forward,
+.flowEnabled .backward {
+    margin-top:0px;
+    display:block;
+    width:18px;
+    height:18px;
+    cursor:pointer;
+    font-size:1px;
+    text-indent:-9999em;
+    position:absolute;
+    top:50%;	
+}
+
+.flowEnabled .backward {
+    background:transparent url(&dtml-portal_url;/++resource++solgemaflowview.resources/left.png) no-repeat;
+    left:0;
+}
+
+.flowEnabled .forward {
+    background:transparent url(&dtml-portal_url;/++resource++solgemaflowview.resources/right.png) no-repeat;
+    right:0;
+}
+
+/* next */
+.flowEnabled .forward:hover { background-position:0px -18px; }
+.flowEnabled .forward:active { background-position:0px -18px; } 
+
+
+/* prev */
+.flowEnabled .backward:hover { background-position:0px -18px; }
+.flowEnabled .backward:active { background-position:0px -18px; }
+
+/* disabled navigational button. is not needed when tabs are configured with rotate: true */
+.flowEnabled .disabled {
+	visibility:hidden !important;		
+}
+/* </dtml-with> */

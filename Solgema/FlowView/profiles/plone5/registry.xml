@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<registry>
+  
+  <records prefix="plone.resources/solgema-flowview"
+           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+    <value key="js">++resource++solgemaflowview.resources/solgemaflowview.js</value>
+    <value key="css">
+      <element>++resource++solgemaflowview.resources/solgemaflowview.css</element>
+    </value>
+  </records>
+  
+  <records prefix="plone.bundles/plone-legacy"
+            interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+    <value key="resources" purge="false">
+      <element>solgema-flowview</element>
+    </value>
+    <value key="enabled">True</value>
+    <value key="last_compilation"></value>
+  </records>
+  
+</registry>

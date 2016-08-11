@@ -1,0 +1,51 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="Solgema.FlowView">
+    
+  <genericsetup:registerProfile
+    name="default"
+    title="Solgema FlowView"
+    directory="profiles/default"
+    description='Install Solgema FlowView.'
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="Solgema FlowView uninstaller"
+      directory="profiles/uninstall"
+      description="Uninstall Solgema FlowView."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+    
+  <genericsetup:registerProfile
+    name="plone4"
+    title="Solgema FlowView Plone 4 stuff"
+    directory="profiles/plone4"
+    description='Install Solgema FlowView for Plone 4.'
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+  <genericsetup:registerProfile
+      name="uninstall4"
+      title="Solgema FlowView uninstall Plone 4 stuff"
+      directory="profiles/uninstall4"
+      description="Uninstall Solgema FlowView's Plone 4 stuff."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+    
+  <genericsetup:registerProfile
+    name="plone5"
+    title="Solgema FlowView Plone 5 stuff"
+    directory="profiles/plone5"
+    description='Install Solgema FlowView for Plone 5.'
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+  <subscriber
+      zcml:condition="installed Products.GenericSetup.events"
+      handler=".setuphandlers.handleProfileImportedEvent" />
+
+</configure>

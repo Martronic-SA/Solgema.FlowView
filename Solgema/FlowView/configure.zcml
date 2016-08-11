@@ -1,0 +1,45 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="Solgema.FlowView">
+
+  <i18n:registerTranslations directory="locales" />
+
+  <include zcml:condition="have plone-5" package=".dx"/>
+
+  <permission
+    id="Solgema.FlowView.manage"
+    title="Solgema.FlowView: manage flowview"
+    />
+    
+  <include package=".browser" />
+  <include file="profiles.zcml"/>
+  <include file="skins.zcml"/>
+
+  <class class="Products.ATContentTypes.content.folder.ATFolder">
+    <implements interface=".interfaces.IFlowViewMarker" />
+  </class>
+  <class class="Products.ATContentTypes.content.folder.ATBTreeFolder">
+    <implements interface=".interfaces.IFlowViewMarker" />
+  </class>
+  <class class="Products.ATContentTypes.content.topic.ATTopic">
+    <implements interface=".interfaces.IFlowViewMarker" />
+  </class>
+
+  <utility
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    component=".vocabularies.FlowViewDisplayTypeVocabulary"
+    name="Solgema.FlowView.FlowViewDisplayTypes"
+    />
+
+  <utility
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    component=".vocabularies.FlowViewsVocabulary"
+    name="Solgema.FlowView.FlowViews"
+    />
+
+</configure>

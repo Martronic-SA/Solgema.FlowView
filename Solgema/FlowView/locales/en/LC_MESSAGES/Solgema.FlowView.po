@@ -1,0 +1,459 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Solgema\n"
+"POT-Creation-Date: 2015-06-08 07:56+0000\n"
+"PO-Revision-Date: 2007-12-14 16:01+0100\n"
+"Last-Translator: Martronic SA <martronic@martronic.ch>\n"
+"Language-Team: EDF\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: Solgema.Artcom\n"
+"X-Is-Fallback-For: en-au en-bz en-ca en-ie en-jm en-nz en-ph en-za en-tt en-gb en-us en-zw\n"
+
+#: ../browser/views/settings.py:62
+msgid "Apply"
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "FlowView"
+msgstr ""
+
+#: ../browser/views/settings.py:48
+#: ../interfaces.py:211
+msgid "You can add your custom javascript invocation code here. Leave blank to use default. Default code is: ${default_code}"
+msgstr ""
+
+#. Default: "If this property is set to true then the tabs will automatically advance to the next tab implementing an automatically \"playable\" slideshow."
+#: ../interfaces.py:172
+msgid "description_autopause"
+msgstr ""
+
+#. Default: "If this property is set to true then the tabs will automatically advance to the next tab implementing an automatically \"playable\" slideshow."
+#: ../interfaces.py:163
+msgid "description_autoplay"
+msgstr ""
+
+#. Default: "Sets the number of items to display per pane. "
+#: ../interfaces.py:345
+msgid "description_batch_size"
+msgstr ""
+
+#: ../interfaces.py:217
+msgid "description_content_layout"
+msgstr ""
+
+#. Default: "The effect to be used when a tab is clicked."
+#: ../interfaces.py:72
+msgid "description_effect"
+msgstr ""
+
+#. Default: "Specifies the event when a tab is opened."
+#: ../interfaces.py:58
+msgid "description_event"
+msgstr ""
+
+#. Default: "Only available when used together with the \"fade\" effect.This property defines how fast (in milliseconds) the opened pane reveals its content."
+#: ../interfaces.py:97
+msgid "description_fadeInSpeed"
+msgstr ""
+
+#. Default: "Only available when used together with the \"fade\" effect.This property defines how fast (in milliseconds) the opened pane hides its content."
+#: ../interfaces.py:107
+msgid "description_fadeOutSpeed"
+msgstr ""
+
+#. Default: "Configure the parameters for this Flow View."
+#: ../browser/views/settings.py:36
+msgid "description_flowview_settings_form"
+msgstr ""
+
+#. Default: "The height (in px) of the flowview content. If empty, the tallest item's height will be used."
+#: ../interfaces.py:146
+msgid "description_height"
+msgstr ""
+
+#. Default: "Specifies the tab that is initially opened when the page loads."
+#: ../interfaces.py:154
+msgid "description_initialIndex"
+msgstr ""
+
+#. Default: "If slide show is timed, the interval sets how long before the next image is shown in miliseconds."
+#: ../interfaces.py:127
+msgid "description_interval"
+msgstr ""
+
+#. Default: "Should this Flow View display navigation tabs?"
+#: ../interfaces.py:302
+msgid "description_navigator"
+msgstr ""
+
+#. Default: "If your flowview is not used as content but only as \"costmetics\" with images, showing only first element avoid having the page to break on load or if javascipt is not activated."
+#: ../interfaces.py:200
+msgid "description_showFirstOnly"
+msgstr ""
+
+#. Default: "The time (in milliseconds) of the scrolling animation."
+#: ../interfaces.py:137
+msgid "description_speed"
+msgstr ""
+
+#. Default: "Choose what you want to be displayed in tabs. "
+#: ../interfaces.py:311
+msgid "description_tab_content"
+msgstr ""
+
+#. Default: "The position of thumbnail images. "
+#: ../interfaces.py:246
+msgid "description_thumb_position"
+msgstr ""
+
+#. Default: "The side of thumbnail images. "
+#: ../interfaces.py:260
+msgid "description_thumb_side"
+msgstr ""
+
+#. Default: "The size of thumbnail images. "
+#: ../interfaces.py:231
+msgid "description_thumb_size"
+msgstr ""
+
+#. Default: "Should this Flow View automatically change images for the user?"
+#: ../interfaces.py:117
+msgid "description_timed"
+msgstr ""
+
+#. Default: "If empty, the scrollable will guess by itself. "
+#: ../interfaces.py:181
+msgid "description_vertical"
+msgstr ""
+
+#. Default: "Flow View"
+#: ../browser/views/settings.py:34
+msgid "heading_flowview_settings_form"
+msgstr ""
+
+#. Default: "You can add your custom javascript effect code here. Only works if \"custom\" selected as effect. Name of you effect must be \"custom\""
+#: ../interfaces.py:91
+msgid "help_custom_effect"
+msgstr ""
+
+#. Default: "ajax"
+#: ../interfaces.py:79
+msgid "label_ajax"
+msgstr ""
+
+#. Default: "Auto pause?"
+#: ../interfaces.py:171
+msgid "label_autopause"
+msgstr ""
+
+#. Default: "Auto play?"
+#: ../interfaces.py:162
+msgid "label_autoplay"
+msgstr ""
+
+#. Default: "Banner"
+#: ../interfaces.py:223
+msgid "label_banner"
+msgstr ""
+
+#. Default: "Batch Size"
+#: ../interfaces.py:344
+msgid "label_batch_size"
+msgstr ""
+
+#. Default: "bottom"
+#: ../interfaces.py:253
+msgid "label_bottom"
+msgstr ""
+
+#. Default: "click"
+#: ../interfaces.py:63
+msgid "label_click"
+msgstr ""
+
+#. Default: "Content"
+#: ../interfaces.py:221
+msgid "label_content"
+msgstr ""
+
+#. Default: "Content Layout"
+#: ../interfaces.py:216
+msgid "label_content_layout"
+msgstr ""
+
+#. Default: "Custom"
+#: ../interfaces.py:224
+msgid "label_custom"
+msgstr ""
+
+#. Default: "Custom Effect"
+#: ../interfaces.py:84
+msgid "label_custom_effect"
+msgstr ""
+
+#. Default: "dblclick"
+#: ../interfaces.py:65
+msgid "label_dblclick"
+msgstr ""
+
+#. Default: "default"
+#: ../interfaces.py:77
+msgid "label_default"
+msgstr ""
+
+#. Default: "description"
+#: ../interfaces.py:317
+msgid "label_description"
+msgstr ""
+
+#. Default: "Display Content Description?"
+#: ../interfaces.py:277
+msgid "label_display_content_description"
+msgstr ""
+
+#. Default: "Display Content Image?"
+#: ../interfaces.py:283
+msgid "label_display_content_image"
+msgstr ""
+
+#. Default: "Display Content Text?"
+#: ../interfaces.py:289
+msgid "label_display_content_text"
+msgstr ""
+
+#. Default: "Display Content Title?"
+#: ../interfaces.py:271
+msgid "label_display_content_title"
+msgstr ""
+
+#. Default: "Display \"More...\" link?"
+#: ../interfaces.py:295
+msgid "label_display_more_link"
+msgstr ""
+
+#. Default: "Effect"
+#: ../interfaces.py:71
+msgid "label_effect"
+msgstr ""
+
+#. Default: "Event"
+#: ../interfaces.py:57
+msgid "label_event"
+msgstr ""
+
+#. Default: "fade"
+#: ../interfaces.py:78
+msgid "label_fade"
+msgstr ""
+
+#. Default: "fadeInSpeed"
+#: ../interfaces.py:96
+msgid "label_fadeInSpeed"
+msgstr ""
+
+#. Default: "fadeOutSpeed"
+#: ../interfaces.py:106
+msgid "label_fadeOutSpeed"
+msgstr ""
+
+#. Default: "Padding in px"
+#: ../interfaces.py:188
+msgid "label_flowPadding"
+msgstr ""
+
+#. Default: "Height"
+#: ../interfaces.py:145
+msgid "label_height"
+msgstr ""
+
+#. Default: "horizontal"
+#: ../interfaces.py:81
+msgid "label_horizontal"
+msgstr ""
+
+#. Default: "image"
+#: ../interfaces.py:318
+msgid "label_image"
+msgstr ""
+
+#. Default: "Initial Index"
+#: ../interfaces.py:153
+msgid "label_initialIndex"
+msgstr ""
+
+#. Default: "Interval"
+#: ../interfaces.py:126
+msgid "label_interval"
+msgstr ""
+
+#. Default: "Custom Invocation Code"
+#: ../interfaces.py:210
+msgid "label_invocation_code"
+msgstr ""
+
+#. Default: "Left"
+#: ../interfaces.py:264
+msgid "label_left"
+msgstr ""
+
+#. Default: "linear"
+#: ../interfaces.py:83
+msgid "label_linear"
+msgstr ""
+
+#. Default: "mini"
+#: ../interfaces.py:238
+msgid "label_mini"
+msgstr ""
+
+#. Default: "mouseover"
+#: ../interfaces.py:64
+msgid "label_mouseover"
+msgstr ""
+
+#. Default: "Use Navigator?"
+#: ../interfaces.py:301
+msgid "label_navigator"
+msgstr ""
+
+#. Default: "preview"
+#: ../interfaces.py:239
+msgid "label_preview"
+msgstr ""
+
+#. Default: "Randomize content order"
+#: ../interfaces.py:353
+msgid "label_randomize"
+msgstr ""
+
+#. Default: "Right"
+#: ../interfaces.py:265
+msgid "label_right"
+msgstr ""
+
+#. Default: "Show border"
+#: ../interfaces.py:194
+msgid "label_showBorder"
+msgstr ""
+
+#. Default: "Show Description?"
+#: ../interfaces.py:51
+msgid "label_showDescription"
+msgstr ""
+
+#. Default: "Show first pane only"
+#: ../interfaces.py:199
+msgid "label_showFirstOnly"
+msgstr ""
+
+#. Default: "Show Title?"
+#: ../interfaces.py:45
+msgid "label_showTitle"
+msgstr ""
+
+#. Default: "slide"
+#: ../interfaces.py:80
+msgid "label_slide"
+msgstr ""
+
+#. Default: "slidetabs"
+#: ../interfaces.py:319
+msgid "label_slidetabs"
+msgstr ""
+
+#. Default: "speed"
+#: ../interfaces.py:136
+msgid "label_speed"
+msgstr ""
+
+#. Default: "Summary"
+#: ../interfaces.py:222
+msgid "label_summary"
+msgstr ""
+
+#. Default: "swing"
+#: ../interfaces.py:82
+msgid "label_swing"
+msgstr ""
+
+#. Default: "Tab Content"
+#: ../interfaces.py:310
+msgid "label_tab_content"
+msgstr ""
+
+#. Default: "Tab Position"
+#: ../interfaces.py:325
+msgid "label_tab_position"
+msgstr ""
+
+#. Default: "thumb"
+#: ../interfaces.py:237
+msgid "label_thumb"
+msgstr ""
+
+#. Default: "Thumbnail image position"
+#: ../interfaces.py:245
+msgid "label_thumb_position"
+msgstr ""
+
+#. Default: "Thumbnail image side"
+#: ../interfaces.py:259
+msgid "label_thumb_side"
+msgstr ""
+
+#. Default: "Thumbnail image size"
+#: ../interfaces.py:230
+msgid "label_thumb_size"
+msgstr ""
+
+#. Default: "tile"
+#: ../interfaces.py:236
+msgid "label_tile"
+msgstr ""
+
+#. Default: "Timed?"
+#: ../interfaces.py:116
+msgid "label_timed"
+msgstr ""
+
+#. Default: "title"
+#: ../interfaces.py:316
+msgid "label_title"
+msgstr ""
+
+#. Default: "top"
+#: ../interfaces.py:251
+msgid "label_top"
+msgstr ""
+
+#. Default: "undertitle"
+#: ../interfaces.py:252
+msgid "label_undertitle"
+msgstr ""
+
+#. Default: "Display Back and Next buttons?"
+#: ../interfaces.py:338
+msgid "label_use_backnext"
+msgstr ""
+
+#. Default: "Vertical?"
+#: ../interfaces.py:180
+msgid "label_vertical"
+msgstr ""
+
+#. Default: "There are no changes in the Flow View settings."
+#: ../browser/views/settings.py:41
+msgid "noChangesMessage_flowview_settings_form"
+msgstr ""
+
+#. Default: "Flow View Settings Saved."
+#: ../browser/views/settings.py:39
+msgid "successMessage_flowview_settings_form"
+msgstr ""
+

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="Collection">
+    <property name="view_methods" purge="False">
+        <element value="flowview" />
+    </property>
+  <property name="behaviors" purge="false">
+    <element value="Solgema.FlowView.interfaces.IFlowViewSettings"/>
+  </property>
+</object>

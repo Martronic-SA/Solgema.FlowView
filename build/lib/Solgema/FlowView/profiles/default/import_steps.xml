@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<import-steps>
+ <import-step id="solgemaflowviewinstall"
+              version="20100903-01"
+              handler="Solgema.FlowView.setuphandlers.installSolgemaFlowView"
+              title="Solgema FlowView install">
+ </import-step>
+</import-steps>

@@ -1,0 +1,38 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="Solgema.FlowView">
+
+  <include package="plone.app.contenttypes"/>
+  <adapter name="flowview_migrator" factory=".migration.FlowViewMigator"/>
+
+  <plone:behavior
+    title="FlowView"
+    description="Show the content as tabs or panes."
+    provides="Solgema.FlowView.interfaces.IFlowViewSettings"
+    factory="plone.behavior.AnnotationStorage"
+    marker="Solgema.FlowView.interfaces.IFlowViewMarker"
+    />
+
+    <browser:page
+        for="plone.dexterity.interfaces.IDexterityContainer"
+        name="flowview"
+        template="layout-dx.pt"
+        class="Solgema.FlowView.browser.views.flowview.BaseFlowView"
+        permission="zope2.View"
+    />
+
+    <browser:page
+        for="plone.dexterity.interfaces.IDexterityContainer"
+        name="flowview-content-dx"
+        class=".views.FlowViewDX"
+        template="layout-content-dx.pt"
+        permission="zope2.View"
+    />
+    
+</configure>

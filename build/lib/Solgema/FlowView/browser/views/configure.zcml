@@ -1,0 +1,55 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+	xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:gallery="http://namespaces.zope.org/gallery"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.plonetruegallery">
+
+    <include package="plone.app.contentmenu" />
+
+    <browser:page
+        name="flowview-settings"
+        for="Solgema.FlowView.interfaces.IFlowViewMarker"
+        class=".settings.FlowViewSettingsView"
+        permission="Solgema.FlowView.manage"
+    />
+
+    <adapter
+        for="Solgema.FlowView.interfaces.IFlowViewMarker"
+        provides="Solgema.FlowView.interfaces.IFlowViewSettings"
+        factory="Solgema.FlowView.settings.FlowViewSettings"
+    />
+
+    <browser:page
+        for="*"
+        name="flowview"
+        template="layout.pt"
+        class=".flowview.BaseFlowView"
+        permission="zope2.View"
+    />
+    
+    <browser:page
+        for="Solgema.FlowView.interfaces.IFlowViewMarker"
+        name="flowview-content"
+        class=".flowview.FlowView"
+        template="layout-content.pt"
+        permission="zope2.View"
+    />
+<!-- 
+    <browser:page
+        for="*"
+        name="banner-view"
+        class=".flowview.BannerView"
+        template="banner-view.pt"
+        permission="zope2.View"
+    />
+-->
+  <adapter for="*
+                zope.publisher.interfaces.browser.IDefaultBrowserLayer
+                *"
+           provides="zope.contentprovider.interfaces.IContentProvider"
+           factory=".flowview.BannerView"
+           name="flowview.banner-view" />
+</configure>

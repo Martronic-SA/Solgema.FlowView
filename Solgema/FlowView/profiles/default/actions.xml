@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+    <action-provider name="portal_actions">
+
+        <action title="FlowView" action_id="flowview_settings" category="object"
+            condition_expr="object/@@solgemaflowview_util/enabled"
+            url_expr="string:${object_url}/@@flowview-settings" visible="True"
+            i18n:attributes="title"
+            i18n:domain="Solgema.FlowView">
+            <permission>Solgema.FlowView: manage flowview</permission>
+        </action>
+
+    </action-provider>
+</object>

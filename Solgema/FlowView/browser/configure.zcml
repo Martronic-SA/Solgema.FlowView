@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="Solgema.FlowView">
+
+	<include package=".views" />
+
+    <browser:page
+        name="solgemaflowview_util"
+        for="*"
+        permission="zope2.View"
+        class=".util.SFWUtility"
+        allowed_interface=".interfaces.ISFWUtility"
+        />
+    
+    <!-- We need to make the request annotatable for this to work -->
+    <class class="ZPublisher.BaseRequest.BaseRequest">
+        <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+    </class>
+
+    <browser:resourceDirectory
+        name="solgemaflowview.resources"
+        directory="files"
+    />
+
+</configure>

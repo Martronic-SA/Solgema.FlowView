@@ -1,0 +1,59 @@
+<div i18n:domain="plone" class="banner_item"
+  tal:define="portal nocall:view/portal;
+              plone_view portal/@@plone;
+              settings nocall:view/settings;
+              item nocall:view/item;
+              site_properties nocall: portal/portal_properties/site_properties;
+              toLocalizedTime nocall: portal/@@plone/toLocalizedTime;
+              normalizeString nocall: portal/plone_utils/normalizeString;
+              use_view_action site_properties/typesUseViewActionInListings|python:();
+              item_type item/portal_type;
+              item_url item/getURL;
+              item_title_or_id item/Title;
+              item_description item/Description;
+              display_content_title settings/display_content_title;
+              display_content_description settings/display_content_description;
+              display_content_description python:display_content_description and item_description;
+              display_content_text settings/display_content_text;
+              item_object python:display_content_text and item.getObject() or None;
+              item_text python:hasattr(item_object, 'getText') and item_object.getText() or '';
+              display_content_text python:display_content_text and item_text;
+              display_more_link settings/display_more_link;
+              display_banner python:display_content_title or display_content_description or display_content_text"
+  tal:attributes="style view/getStyle">
+
+  <div class="banner_content" tal:condition="display_banner">
+    <h2 tal:condition="display_content_title">
+        <a href="#"
+          tal:attributes="href python:item_type in use_view_action and item_url+'/view' or item_url;"
+          tal:content="item_title_or_id">Item Title</a>
+    </h2>
+
+     <p class="tileBody" tal:condition="python:display_content_description">
+         <span class="description" tal:content="item_description">
+           description
+         </span>
+     </p>
+
+     <p class="tileBody" tal:condition="python:display_content_text">
+         <span class="description" tal:replace="structure item_text">
+           description
+         </span>
+     </p>
+
+     <p class="tileFooter" tal:condition="display_more_link">
+       <tal:file tal:condition="python:item_type == 'File'">
+         <a href="#"
+           class="summary url"
+           tal:attributes="href string:${item_url}/at_download/file;"
+           i18n:domain="Martronic.Solgema" i18n:translate="Open file">
+         </a>,&nbsp
+       </tal:file>
+         <a href=""
+           tal:attributes="href python:item_type in use_view_action and item_url+'/view' or item_url;"
+           i18n:translate="read_more">
+           Read More&hellip;
+         </a>
+      </p>
+  </div>
+</div>
