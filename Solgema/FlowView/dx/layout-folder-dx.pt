@@ -1,0 +1,327 @@
+        <tal:title tal:condition="view/showTitle"
+           tal:define="dummy python:request.get('esi') and request.response.setHeader('X-Theme-Disabled', 'True') or None;">
+          <h1 metal:use-macro="context/kss_generic_macros/macros/generic_title_view">
+            Generic KSS Title. Is rendered with class="documentFirstHeading".
+          </h1>
+          <div tal:replace="structure provider:plone.belowcontenttitle" />
+        </tal:title>
+        
+        <tal:description tal:condition="view/showDescription">
+          <div metal:use-macro="context/kss_generic_macros/macros/generic_description_view">
+            Generic KSS Description. Is rendered with class="documentDescription".
+          </div>
+        </tal:description>
+        
+    <tal:text tal:define="kssClassesView context/@@kss_field_decorator_view;
+                          getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
+                          templateId template/getId">
+
+    <div metal:define-macro="text-field-view"
+         id="parent-fieldname-text" class="stx"
+         tal:define="kss_class python:getKssClasses('text',
+                     templateId=templateId, macro='text-field-view');
+                     has_text exists:context/aq_explicit/getText|nothing;
+                     text python:hasattr(context, 'text') and context.text or hasattr(context, 'getText') and context.getText() or ''"
+         tal:condition="text"
+         tal:attributes="class python:context.Format() in ('text/structured', 'text/x-rst', ) and 'stx' + kss_class or 'plain' + kss_class">
+        <div metal:define-slot="inside" tal:replace="structure text">The body</div>
+    </div>
+    </tal:text>
+    
+        <div class="noimages" tal:condition="python: view.number_of_items == 0">
+          <p class="discreet" i18n:domain="plone"
+             i18n:translate="description_no_items_in_folder">
+              There are currently no items in this folder.
+          </p>
+        </div>
+        <tal:display tal:condition="python: view.number_of_items > 0">
+        <div id="flow-container"
+          tal:define="plone_view context/@@plone;
+                      Batch python:modules['Products.CMFPlone'].Batch;">
+  <div tal:define="settings nocall:view/settings;
+                   backnextclass python:settings.use_backnext and 'backnext_enabled' or '';
+                   display_more_link settings/display_more_link;
+                   isAnon context/@@plone_portal_state/anonymous;
+                   contextID here/getId"
+    tal:attributes="id string:flow_${contextID};
+                    class view/mainClass">
+    <metal:block use-macro="context/folder_listing/macros/content-core">
+      <metal:inside fill-slot="inside"></metal:inside>
+      <metal:batch fill-slot="top-batch"></metal:batch>
+      <metal:entries fill-slot="entries"
+        tal:define="batch python:Batch(batch._sequence, batch._size, 0, orphan=0);
+                    tabs_items python:batch.numpages > 1 and [batch._sequence[i] for i in [a*batch._size for a in range(batch.numpages)]] or batch._sequence">
+      
+        <tal:tabstop tal:condition="python:settings.tab_position == 'top'">
+          <div id="flowtabs" class="navi top" tal:condition="settings/navigator"><ul>
+            <tal:entry tal:repeat="item tabs_items">
+              <li><a href="#" tal:condition="python:settings.tab_content != 'image'"
+                tal:attributes="href string:#${contextID}-pane${repeat/item/index};
+                                class string:${settings/tab_content} ${settings/tabs_extra_class|nothing}">
+                <span tal:condition="python:settings.tab_content == 'title'"
+                  tal:replace="item/Title"/>
+                <span tal:condition="python:settings.tab_content == 'description'"
+                  tal:replace="item/Description|nothing"/>
+              </a>
+                <tal:image condition="python:settings.tab_content == 'image'"
+                  define="item_object item/getObject;
+                          item_type item/portal_type;
+                          item_url item/getURL|item/absolute_url;
+                          item_id item/getId|item/id;
+                          item_title_or_id item/Title;
+                          item_description item/Description;
+                          image_assoc_size_summary string:mini;
+                          displayimginsummary python:True;
+                          displaylegendinsummary python:False">
+                  <tal:notimage condition="python:item_type != 'Image'">
+                    <metal:image use-macro="item_object/ImageRelation_template/macros/summary">
+                      Related Image
+                    </metal:image>
+                  </tal:notimage>
+                  <tal:imageitem condition="python:item_type == 'Image'">
+                    <a tal:attributes="href item_url">
+<img src="" alt="" tal:attributes="src python:item_url+'/image_'+image_assoc_size_summary;
+                                   width python:item_object.getWidth(image_assoc_size_summary);
+                                   height python:item_object.getHeight(image_assoc_size_summary);
+                                   title item_title_or_id;
+                                   alt item_title_or_id" />
+                    </a>
+                  </tal:imageitem>
+                </tal:image>
+              </li>
+            </tal:entry>
+          </ul></div>
+        </tal:tabstop>
+        
+        <a tal:condition="settings/use_backnext"
+           tal:define="extra_class settings/prev_extra_class|nothing"
+           tal:attributes="class string:backward ${extra_class}" class="forward"></a>
+
+        <div id="flowpanes_container"
+          tal:define="pad view/padding"
+          tal:attributes="style string:padding:${pad};;;
+                          class python:getattr(settings, 'showFirstOnly', True) and 'showFirstOnly' or None">
+          <div id="flowpanes">
+            <div class="items">
+              <tal:page tal:repeat="pagenumber python:range(batch.numpages)">
+                <div tal:attributes="class string:multipages ${contextID}-page page page${pagenumber} ${settings/content_layout} item${pagenumber};"
+                    tal:define="batch python:Batch(batch._sequence, batch._size, pagenumber*batch._size, orphan=0)" tal:omit-tag="python:batch.numpages <= 1">
+                  <tal:item repeat="item batch">
+                    <div tal:define="itemindex repeat/item/index"
+                      tal:attributes="class string:${contextID}-page page page${pagenumber} ${settings/content_layout} item${itemindex};"
+                      tal:omit-tag="python:batch.numpages > 1">
+                      <div tal:define="item_url item/getURL|item/absolute_url;
+                                       item_id item/getId|item/id;
+                                       item_title_or_id item/Title;
+                                       item_description item/Description;
+                                       item_type item/portal_type;
+                                       item_type_title item/Type;
+                                       item_modified item/ModificationDate;
+                                       item_created item/CreationDate;
+                                       item_icon python:plone_view.getIcon(item);
+                                       item_type_class python:'contenttype-' + view.normalizeString(item_type);
+                                       item_wf_state item/review_state|python: context.portal_workflow.getInfoFor(item, 'review_state', '');
+                                       item_wf_state_class python:'state-' + view.normalizeString(item_wf_state);
+                                       item_creator item/Creator;
+                                       item_start item/start|item/StartDate|nothing;
+                                       item_end item/end|item/EndDate|nothing;
+                                       item_sametime python: item_start == item_end;
+                                       item_samedate python: (item_end - item_start &lt; 1) if item_type == 'Event' else False;
+                                       item_position python:repeat['item'].start and 'first' or repeat['item'].end and 'last' or '';
+                                       item_openx_img item/openxSRC | nothing"
+                         tal:attributes="class string:pageContent ${item_position};
+                                         style view/contentStyle|nothing">
+                        <tal:contentlayout condition="python:settings.content_layout == 'content'">
+                          <div tal:replace="structure python:item.getObject().folder_full_view_item()" />
+                        </tal:contentlayout>
+                        <tal:summarylayout condition="python:settings.content_layout == 'summary'">
+                          <div class="tileItem visualIEFloatFix">
+                            <metal:item use-macro="context/summary_item/macros/item"></metal:item>
+                          </div>
+                        </tal:summarylayout>
+                        <tal:banner condition="python:settings.content_layout == 'banner'"
+                          tal:replace="structure provider:flowview.banner-view"/>
+                        <tal:customlayout condition="python:settings.content_layout == 'custom'">
+                          <div class="item visualIEFloatFix" 
+                            tal:define="item_object item/getObject;
+                                        item_text item_object/getText|nothing;
+                                        image_assoc_size_summary settings/thumb_size|nothing;
+                                        image_assoc_side_summary settings/thumb_side|nothing;
+                                        displayimginsummary settings/display_content_image|nothing;
+                                        displaylegendinsummary python:False">
+
+        <tal:condition condition="python:settings.display_content_image and settings.thumb_position == 'top'">
+        <metal:image tal:replace="structure provider:cie.viewletmanager">
+        Related Image
+        </metal:image>
+        </tal:condition>
+
+                    <h2 class="tileHeadline" tal:condition="settings/display_content_title"
+                      tal:attributes="title item_description"
+                        metal:define-macro="listitem">
+                        <a href="#"
+                           class="summary url"
+                           tal:condition="python:item_type !='Link'"
+                           tal:attributes="href python:item_type in use_view_action and item_url+'/view' or item_url;"
+                           tal:content="item_title_or_id">
+                            Item Title
+                        </a>
+                        <a href="#"
+                           class="link-plain"
+                           tal:condition="python:item_type == 'Link'"
+                           tal:content="item_title_or_id"
+                           tal:attributes="href item/getRemoteUrl;">
+                            External Link
+                        </a>
+                    </h2>
+
+        <tal:condition condition="python:settings.display_content_image and settings.thumb_position == 'undertitle'">
+        <metal:image tal:replace="structure provider:cie.viewletmanager">
+        Related Image
+        </metal:image>
+        </tal:condition>
+        
+                    <div class="documentByLine"
+                      tal:define="toLocalizedTime nocall:plone_view/toLocalizedTime;
+                                  mtool context/portal_membership;" 
+                      tal:condition="python: not isAnon or context.portal_registry['plone.allow_anon_views_about']" i18n:domain="plone"
+                      >
+                    <tal:event condition="python: item_type == 'Event'">
+                         <span tal:condition="python: item_type == 'Event'"
+                               i18n:translate="label_event_byline">
+                             (<span tal:content="string:${item/location}"
+                                    class="location"
+                                    i18n:name="location">Oslo</span><tal:comma
+                                    tal:replace="string:, "
+                                    tal:condition="item/location" />from
+                              <abbr class="dtstart"
+                                    tal:attributes="title python:item_start"
+                                    tal:content="python:toLocalizedTime(item_start,long_format=1)"
+                                    i18n:name="start">from date</abbr> to
+                              <abbr class="dtend"
+                                    tal:attributes="title python:item_end"
+                                    tal:content="python:toLocalizedTime(item_end,long_format=1)"
+                                    i18n:name="end">to date</abbr>)
+                         </span>
+                    </tal:event>
+                    <tal:newsitem condition="python: item_type == 'News Item'">
+                        <tal:name tal:condition="item_creator"
+                            tal:define="author python:mtool.getMemberInfo(item_creator)">
+                          <span i18n:translate="label_by_author">
+                            by
+                          <a href="#"
+                             tal:attributes="href string:${context/portal_url}/author/${item_creator}"
+                             tal:content="python:author and author['fullname'] or item_creator"
+                             tal:omit-tag="not:author"
+                             i18n:name="author">
+                            Bob Dobalina
+                          </a>
+                          </span>
+                        </tal:name>
+                        &mdash;
+                        <span tal:replace="python:toLocalizedTime(item_modified,long_format=1)">
+                        August 16, 2001 at 23:35:59
+                        </span>
+                    </tal:newsitem>
+                    </div>
+
+                    <p class="tileBody" tal:condition="python:item_description and settings.display_content_description">
+                        <span tal:omit-tag="" tal:condition="not:item_description">
+                            &nbsp;
+                        </span>
+                        <span class="description" tal:content="item_description">
+                            description
+                        </span>
+                    </p>
+
+                    <tal:text condition="python:item_text and getattr(settings, 'display_content_text', False)">
+                        <p tal:replace="structure item_text">Text</p>
+                    </tal:text>
+
+                    <p class="tileFooter">
+                      <tal:file tal:condition="python:item_type == 'File'">
+                        <a href="#"
+                          class="summary url"
+                          tal:attributes="href string:${item_url}/at_download/file;"
+                          i18n:domain="Martronic.Solgema" i18n:translate="Open file">
+                        </a>,&nbsp
+                      </tal:file>
+                        <a href=""
+                           tal:attributes="href python:item_type in use_view_action and item_url+'/view' or item_url;"
+                           tal:condition="display_more_link"
+                           i18n:domain="plone" i18n:translate="read_more">
+                        Read More&hellip;
+                        </a>
+                    </p>
+
+        <tal:condition condition="python:settings.display_content_image and settings.thumb_position == 'bottom'">
+        <metal:image tal:replace="structure provider:cie.viewletmanager">
+        Related Image
+        </metal:image>
+        </tal:condition>
+
+                    <div class="visualClear"></div>
+
+                          </div>
+                        </tal:customlayout>
+                      </div>
+                    </div>
+                  </tal:item>
+                </div>
+              </tal:page>
+            </div>
+          </div>
+        </div>
+        
+        <a tal:condition="settings/use_backnext"
+           tal:define="extra_class settings/next_extra_class|nothing"
+           tal:attributes="class string:forward ${extra_class}" class="forward"></a>
+        
+        <tal:tabsbottom tal:condition="python:settings.tab_position == 'bottom'">
+          <div id="flowtabs" class="navi bottom" tal:condition="settings/navigator"><ul>
+            <tal:entry tal:repeat="item tabs_items">
+              <li><a href="#" tal:condition="python:settings.tab_content != 'image'"
+                tal:attributes="href string:#${contextID}-pane${repeat/item/index};
+                                class string:${settings/tab_content} ${settings/tabs_extra_class|nothing}">
+                <span tal:condition="python:settings.tab_content == 'title'"
+                  tal:replace="item/Title"/>
+                <span tal:condition="python:settings.tab_content == 'description'"
+                  tal:replace="item/Description|nothing"/>
+              </a>
+                <tal:image condition="python:settings.tab_content == 'image'"
+                  define="item_object item/getObject;
+                          item_type item/portal_type;
+                          item_url item/getURL|item/absolute_url;
+                          item_id item/getId|item/id;
+                          item_title_or_id item/Title;
+                          item_description item/Description;
+                          image_assoc_size_summary string:mini;
+                          displayimginsummary python:True;
+                          displaylegendinsummary python:False">
+                  <tal:notimage condition="python:item_type != 'Image'">
+                    <metal:image use-macro="item_object/ImageRelation_template/macros/summary">
+                      Related Image
+                    </metal:image>
+                  </tal:notimage>
+                  <tal:imageitem condition="python:item_type == 'Image'">
+                    <a tal:attributes="href item_url">
+<img src="" alt="" tal:attributes="src python:item_url+'/image_'+image_assoc_size_summary;
+                                   width python:item_object.getWidth(image_assoc_size_summary);
+                                   height python:item_object.getHeight(image_assoc_size_summary);
+                                   title item_title_or_id;
+                                   alt item_title_or_id" />
+                    </a>
+                  </tal:imageitem>
+                </tal:image>
+              </li>
+            </tal:entry>
+          </ul></div>
+        </tal:tabsbottom>
+        
+      </metal:entries>
+      <metal:batch fill-slot="bottom-batch"></metal:batch>
+    </metal:block>
+  </div>
+</div>
+    <tal:replace tal:replace="structure view/javascript" />
+        </tal:display>
