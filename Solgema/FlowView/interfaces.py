@@ -334,6 +334,26 @@ class IFlowViewSettings(Interface):
         default=False,
         required=True
     )
+    
+    tabs_extra_class = schema.TextLine(
+        title=_(u"label_tabs_extra_class", default=u"Extra class for tabs"),
+        required=False
+    )
+    
+    current_extra_class = schema.TextLine(
+        title=_(u"label_current_extra_class", default=u"Extra class for current slide tab"),
+        required=False
+    )
+    
+    prev_extra_class = schema.TextLine(
+        title=_(u"label_prev_extra_class", default=u"Extra class for current prev button"),
+        required=False
+    )
+    
+    next_extra_class = schema.TextLine(
+        title=_(u"label_next_extra_class", default=u"Extra class for current next button"),
+        required=False
+    )
 
     batch_size = schema.Int(
         title=_(u"label_batch_size", default=u"Batch Size"),

@@ -59,6 +59,7 @@ Solgema/FlowView/browser/views/solgemaflowview.css.pt
 Solgema/FlowView/dx/__init__.py
 Solgema/FlowView/dx/configure.zcml
 Solgema/FlowView/dx/interfaces.py
+Solgema/FlowView/dx/layout-content-dx.pt
 Solgema/FlowView/dx/layout-dx.pt
 Solgema/FlowView/dx/migration.py
 Solgema/FlowView/dx/views.py

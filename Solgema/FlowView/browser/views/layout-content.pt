@@ -57,7 +57,7 @@
             <tal:entry tal:repeat="item tabs_items">
               <li><a href="#" tal:condition="python:settings.tab_content != 'image'"
                 tal:attributes="href string:#${contextID}-pane${repeat/item/index};
-                                class settings/tab_content">
+                                class string:${settings/tab_content} ${settings/tabs_extra_class|nothing}">
                 <span tal:condition="python:settings.tab_content == 'title'"
                   tal:replace="item/Title"/>
                 <span tal:condition="python:settings.tab_content == 'description'"
@@ -92,8 +92,10 @@
             </tal:entry>
           </ul></div>
         </tal:tabstop>
-        
-        <a class="backward fa fa-chevron-circle-left" tal:condition="settings/use_backnext"></a>
+
+        <a tal:condition="settings/use_backnext"
+           tal:define="extra_class settings/prev_extra_class|nothing"
+           tal:attributes="class string:backward ${extra_class}" class="forward"></a>
         <div id="flowpanes_container"
           tal:define="pad view/padding"
           tal:attributes="style string:padding:${pad};;;
@@ -271,14 +273,16 @@
           </div>
         </div>
         
-        <a class="forward fa fa-chevron-circle-right" tal:condition="settings/use_backnext"></a>
+        <a tal:condition="settings/use_backnext"
+           tal:define="extra_class settings/next_extra_class|nothing"
+           tal:attributes="class string:forward ${extra_class}" class="forward"></a>
         
         <tal:tabsbottom tal:condition="python:settings.tab_position == 'bottom'">
           <div id="flowtabs" class="navi bottom" tal:condition="settings/navigator"><ul>
             <tal:entry tal:repeat="item tabs_items">
               <li><a href="#" tal:condition="python:settings.tab_content != 'image'"
                 tal:attributes="href string:#${contextID}-pane${repeat/item/index};
-                                class settings/tab_content">
+                                class string:${settings/tab_content} ${settings/tabs_extra_class|nothing}">
                 <span tal:condition="python:settings.tab_content == 'title'"
                   tal:replace="item/Title"/>
                 <span tal:condition="python:settings.tab_content == 'description'"

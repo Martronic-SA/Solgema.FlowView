@@ -20,7 +20,7 @@
     />
 
     <browser:page
-        for="plone.dexterity.interfaces.IDexterityContainer"
+        for="plone.app.iterate.dexterity.interfaces.IDexterityIterateAware"
         name="flowview"
         template="layout-dx.pt"
         class="Solgema.FlowView.browser.views.flowview.BaseFlowView"
@@ -31,7 +31,15 @@
         for="plone.dexterity.interfaces.IDexterityContainer"
         name="flowview-content-dx"
         class=".views.FlowViewDX"
-        template="layout-content-dx.pt"
+        template="layout-folder-dx.pt"
+        permission="zope2.View"
+    />
+
+    <browser:page
+        for="plone.app.contenttypes.interfaces.ICollection"
+        name="flowview-content-dx"
+        class=".views.FlowViewDX"
+        template="layout-collection-dx.pt"
         permission="zope2.View"
     />
     

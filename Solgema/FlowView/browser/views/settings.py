@@ -29,7 +29,14 @@ class FlowViewSettingsForm(group.GroupForm, form.EditForm):
                      'thumb_size',
                      'thumb_position',
                      'thumb_side']
-    navigationFields = ['navigator', 'tab_content', 'tab_position', 'use_backnext']
+    navigationFields = ['navigator',
+                        'tab_content',
+                        'tab_position',
+                        'use_backnext',
+                        'tabs_extra_class',
+                        'current_extra_class',
+                        'prev_extra_class',
+                        'next_extra_class']
     
     label = _(u'heading_flowview_settings_form', default=u'Flow View')
     

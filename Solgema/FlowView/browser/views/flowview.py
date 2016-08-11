@@ -299,7 +299,7 @@ function runFlowView(container) {
     }
 
     def scrollableJavascript(self):
-        return """$("#"+containerid+" #flowtabs ul li a:first").addClass("current");
+        return """$("#"+containerid+" #flowtabs ul li a:first").addClass("current %(current_extra_class)s");
     container.find("#flowpanes").scrollable({
         circular   : true,
         easing     : "%(effect)s",
@@ -308,17 +308,18 @@ function runFlowView(container) {
         next       : "#"+containerid+" .forward",
         prev       : "#"+containerid+" .backward",
 //        mousewheel : true,
-        activeClass: "current"
+        activeClass: "current %(current_extra_class)s"
     })%(activateAutoscrollTimed)s.navigator({
         navi       : "#"+containerid+" .navi ul",
         naviItem   : "a",
-        activeClass: "current"
+        activeClass: "current %(current_extra_class)s"
     });
 };""" % {
     'effect'                 :self.settings.effect,
     'speed'                  :self.settings.speed,
     'vertical'               :jsbool(self.settings.vertical),
-    'activateAutoscrollTimed':self.activateAutoscrollTimed()
+    'activateAutoscrollTimed':self.activateAutoscrollTimed(),
+    'current_extra_class'    :getattr(self.settings, 'current_extra_class', '')
     }
 
     def activateAutoscrollTimed(self):
