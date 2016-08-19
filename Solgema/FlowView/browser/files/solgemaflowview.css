@@ -241,7 +241,7 @@ div.flowEnabled.slidetabs #flowtabs li a.current {
 } 
 
 .flowEnabled #flowtabs li a.current { 
-    background:#AAAAAA none scroll repeat-x bottom left;
+    background:#edecec none scroll repeat-x bottom left;
     color: #000000;
 }
 
