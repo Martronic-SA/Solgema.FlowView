@@ -337,7 +337,7 @@ function runFlowView(container) {
 
     def standardJavascript(self):
         return """
-    $("#"+containerid+" .navi ul").tabs("#"+containerid+" .items:first > div",IBrowserRequest
+    $("#"+containerid+" .navi ul").tabs("#"+containerid+" .items:first > div",
         {
         rotate: true,
         effect: "%(effect)s",
