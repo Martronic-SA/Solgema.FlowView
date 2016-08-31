@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: Solgema.FlowView
-Version: 1.0.2-r0
+Version: 1.0.4.post0
 Summary: Solgema
 Home-page: http://www.martronic.ch/Solgema/plone_products/solgema_flowview
 Author: Martronic SA
@@ -32,6 +32,14 @@ Description: Solgema.FlowView
         
         
         Changelog for Solgema.FlowView
+        
+        1.0.4
+        -----
+        
+        - Fix getting portal catalog on brain item, use getSiteUI instead
+        - Fix errors when Martronic.ContentImageExtend is not installed
+        
+        - 1.0.3 : Fix Plone5 collection. added field for navigation buttons custom class
         
         - 1.0.2 : Fix missing file in dx directory (Plone 5 Dexterity) [fmoret]
         

@@ -11,7 +11,7 @@
       <tal:main-macro metal:define-macro="main">
         <div id="viewlet-above-content-title" tal:content="structure provider:plone.abovecontenttitle"
           tal:condition="python:not request.get('ajax_load') and not request.get('ajax_content_load')" />
-  <metal:flow-core metal:define-macro="flow-core">
+  <metal:flow-core metal:define-macro="content-core">
       <div tal:replace="structure context/@@flowview-content"/>
   </metal:flow-core>
       </tal:main-macro>

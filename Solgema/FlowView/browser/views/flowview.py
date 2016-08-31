@@ -1,4 +1,9 @@
+import logging
 from Products.Five.browser import BrowserView
+try:
+    from plone.app.contenttypes.browser.folder import FolderView
+except:
+    FolderView = BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.memoize.instance import memoize
 from Solgema.FlowView.utils import getDisplayAdapter
@@ -14,16 +19,24 @@ from zope import schema
 from zope.component.hooks import getSite
 from Products.Five.utilities import marker
 try:
+    from plone.dexterity.interfaces import IDexterityContainer, IDexterityContent
+    from plone.namedfile.scaling import ImageScaling
+    has_dx = True
+except:
+    has_dx = False
+try:
     from collective.plonetruegallery.utils import getGalleryAdapter
     hasTrueGallery = True
 except:
     hasTrueGallery = False
-
+LOG = logging.getLogger(__name__)
 
 def jsbool(val):
     return str(val).lower()
 
 class BaseFlowView(BrowserView):
+
+    template = ViewPageTemplateFile('layout.pt')
 
     def __init__(self, context, request):
         super(BaseFlowView, self).__init__(context, request)
@@ -31,9 +44,13 @@ class BaseFlowView(BrowserView):
         
     @property
     def macros(self):
+        LOG.info(self.template.macros.names)
         return self.template.macros
 
-class FlowView(BrowserView):
+    def render(self):
+        return self.template()
+
+class FlowView(FolderView):
 
     name = None
     description = None
@@ -41,6 +58,7 @@ class FlowView(BrowserView):
     userWarning = None
     staticFilesRelative = '++resource++solgemaflowview.resources'
     contentclass = 'page'
+    text = False
 
     def __init__(self, context, request):
         super(FlowView, self).__init__(context, request)
@@ -404,20 +422,23 @@ class BannerView(ContentProviderBase):
         self.portal = portal_state.portal()
         self.image = self.getImage()
         self.imageDict = self.getImageDict()
-        if self.item == None:
+        if not self.item:
             self.item = self.context
 
     @memoize
     def getImages(self):
         results = []
         if hasattr(self.item, 'getObject'):
-            catalog = getToolByName(self.item, 'portal_catalog')
-            if isinstance(getattr(self.item, 'image_assoc', None), list) and len(getattr(self.item, 'image_assoc', [])) > 0:
-                results = catalog.searchResults({'UID':self.item.image_assoc[0], 'Language':'all'})
-            elif self.item.usecontentimage:
-                path = self.item.getPath()
-                if path:
-                    results = catalog.searchResults(path=path, portal_type='Image', sort_on='getObjPositionInParent')
+            if self.item.portal_type == 'Image':
+                results = [self.item,]
+            else:
+                catalog = getToolByName(getSite(), 'portal_catalog')
+                if isinstance(getattr(self.item, 'image_assoc', None), list) and len(getattr(self.item, 'image_assoc', [])) > 0:
+                    results = catalog.searchResults({'UID':self.item.image_assoc[0], 'Language':'all'})
+                elif getattr(self.item, 'usecontentimage', True):
+                    path = self.item.getPath()
+                    if path:
+                        results = catalog.searchResults(path=path, portal_type='Image', sort_on='getObjPositionInParent')
         else:
             if getattr(self.item, 'displayimginsummary', False):
                 try:
@@ -425,7 +446,7 @@ class BannerView(ContentProviderBase):
                 except:
                     pass
                 if images:
-                    catalog = getToolByName(self.item, 'portal_catalog')
+                    catalog = getToolByName(getSite(), 'portal_catalog')
                     results = catalog.searchResults({'UID':images[0].UID(), 'Language':'all'})
         return results
         
@@ -437,12 +458,18 @@ class BannerView(ContentProviderBase):
 
     def imageWidth(self):
         if self.image:
-            return self.image.getField('image').getSize(self.image)[0]
+            if hasattr(self.image, 'getWidth'):
+                return self.image.getWidth()
+            else:
+                return ImageScaling(self.image, self.request).scale().width
         return None
 
     def imageHeight(self):
         if self.image:
-            return self.image.getField('image').getSize(self.image)[1]
+            if hasattr(self.image, 'getHeight'):
+                return self.image.getHeight()
+            else:
+                return ImageScaling(self.image, self.request).scale().height
         return None
 
     def getImageDict(self):

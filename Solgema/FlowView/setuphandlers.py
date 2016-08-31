@@ -51,8 +51,13 @@ def uninstallSolgemaFlowView(context):
 def handleProfileImportedEvent(event):
     context = event.tool
     portal_quickinstaller = getToolByName(context, 'portal_quickinstaller')
-    if portal_quickinstaller.isProductInstalled('Solgema.FlowView') and 'to500' in event.profile_id and event.full_import:
-        portal_setup = getToolByName(context, 'portal_setup')
-        portal_setup.runAllImportStepsFromProfile('profile-Solgema.FlowView:uninstall4')
-        portal_setup.runAllImportStepsFromProfile('profile-Solgema.FlowView:plone5')
+    if portal_quickinstaller.isProductInstalled('Solgema.FlowView'):
+        if portal_quickinstaller.isProductInstalled('plone.app.contenttypes') and 'to500' in event.profile_id and event.full_import:
+            portal_setup = getToolByName(context, 'portal_setup')
+            portal_setup.runAllImportStepsFromProfile('profile-Solgema.FlowView:uninstall4')
+            portal_setup.runAllImportStepsFromProfile('profile-Solgema.FlowView:plone5')
+        elif 'plone.app.contenttypes' in event.profile_id and event.full_import:
+            portal_setup = getToolByName(context, 'portal_setup')
+            portal_setup.runAllImportStepsFromProfile('profile-Solgema.FlowView:uninstall4')
+            portal_setup.runAllImportStepsFromProfile('profile-Solgema.FlowView:plone5')
 
