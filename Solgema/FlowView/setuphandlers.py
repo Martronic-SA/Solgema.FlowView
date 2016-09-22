@@ -46,6 +46,14 @@ def uninstallSolgemaFlowView(context):
     if context.readDataFile('solgemaflowview_uninstall.txt') is None:
         return
     site = context.getSite()
+    if getFSVersionTuple()[0] == 4:
+        setup.runAllImportStepsFromProfile('profile-Solgema.FlowView:uninstall4')
+        jstool = getToolByName(site, 'portal_javascripts')
+        jstool.cookResources()
+        csstool = getToolByName(site, 'portal_css')
+        csstool.cookResources()
+    else:
+        setup.runAllImportStepsFromProfile('profile-Solgema.FlowView:uninstall5')
 
 @adapter(IProfileImportedEvent)
 def handleProfileImportedEvent(event):

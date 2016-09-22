@@ -40,11 +40,9 @@ class BaseFlowView(BrowserView):
 
     def __init__(self, context, request):
         super(BaseFlowView, self).__init__(context, request)
-        marker.mark( self.context, IFlowViewMarker )
         
     @property
     def macros(self):
-        LOG.info(self.template.macros.names)
         return self.template.macros
 
     def render(self):

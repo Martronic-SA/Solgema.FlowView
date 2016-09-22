@@ -20,13 +20,13 @@
   <include file="profiles.zcml"/>
   <include file="skins.zcml"/>
 
-  <class class="Products.ATContentTypes.content.folder.ATFolder">
+  <class zcml:condition="installed Products.ATContentTypes" class="Products.ATContentTypes.content.folder.ATFolder">
     <implements interface=".interfaces.IFlowViewMarker" />
   </class>
-  <class class="Products.ATContentTypes.content.folder.ATBTreeFolder">
+  <class zcml:condition="installed Products.ATContentTypes" class="Products.ATContentTypes.content.folder.ATBTreeFolder">
     <implements interface=".interfaces.IFlowViewMarker" />
   </class>
-  <class class="Products.ATContentTypes.content.topic.ATTopic">
+  <class zcml:condition="installed Products.ATContentTypes" class="Products.ATContentTypes.content.topic.ATTopic">
     <implements interface=".interfaces.IFlowViewMarker" />
   </class>
 

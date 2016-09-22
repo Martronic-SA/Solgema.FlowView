@@ -44,6 +44,14 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
+  <genericsetup:registerProfile
+      name="uninstall5"
+      title="Solgema FlowView uninstall Plone 5 stuff"
+      directory="profiles/uninstall5"
+      description="Uninstall Solgema FlowView's Plone 5 stuff."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
   <subscriber
       zcml:condition="installed Products.GenericSetup.events"
       handler=".setuphandlers.handleProfileImportedEvent" />

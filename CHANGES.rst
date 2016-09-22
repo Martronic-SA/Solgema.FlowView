@@ -1,6 +1,12 @@
 Changelog for Solgema.FlowView
 ------------------------------
 
+1.0.6
+-----
+- Remove the automatic marker for IFlowViewMarker as it causes CSRF protection issues
+- Remove IFlowViewMarkerDX not used.
+- Added uninstall profile for Plone 5
+
 1.0.5
 -----
 - Use plone.app.contenttypes' FolderView as base for FlowView view as we use "folder_listing" in the template.
