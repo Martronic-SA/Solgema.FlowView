@@ -1,5 +1,13 @@
 Changelog for Solgema.FlowView
 ------------------------------
+1.0.8
+-----
+- Whole javascript refactored. lighter and better handling of multiple flowview on a page.
+
+1.0.7
+.....
+- Add extra current class to standard tabs (fade, ...)
+- remove allowAnonymousShowAbout
 
 1.0.6
 -----

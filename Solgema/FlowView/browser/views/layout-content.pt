@@ -42,7 +42,9 @@
                    backnextclass python:settings.use_backnext and 'backnext_enabled' or '';
                    display_more_link settings/display_more_link;
                    isAnon context/@@plone_portal_state/anonymous;
-                   contextID here/getId"
+                   contextID here/getId;
+                   isAnon context/@@plone_portal_state/anonymous;
+                   show_about python:not isAnon or context.portal_registry['plone.allow_anon_views_about'];"
     tal:attributes="id string:flow_${contextID};
                     class view/mainClass">
     <metal:block use-macro="context/folder_listing/macros/content-core">
@@ -185,7 +187,7 @@
                     <div class="documentByLine"
                       tal:define="toLocalizedTime nocall:plone_view/toLocalizedTime;
                                   mtool context/portal_membership;" 
-                      tal:condition="python:site_properties.allowAnonymousViewAbout or not isAnon" i18n:domain="plone"
+                      tal:condition="show_about" i18n:domain="plone"
                       >
                     <tal:event condition="python: item_type == 'Event'">
                          <span tal:condition="python: item_type == 'Event'"

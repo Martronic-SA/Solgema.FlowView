@@ -119,8 +119,6 @@ class FlowView(FolderView):
         txt = ["""<script type="text/javascript">""",]
         if getattr(self.settings, 'effect', None) == 'custom' and getattr(self.settings, 'custom_effect', None):
             txt.append(self.settings.custom_effect)
-        txt.append(self.resizePages())
-        txt.append(self.initTabs())
         txt.append(self.activateFlowView())
         if getattr(self.settings, 'invocation_code', None):
             txt.append(self.settings.invocation_code)
@@ -130,47 +128,6 @@ class FlowView(FolderView):
         txt.append("""</script>""")
         return '\n'.join(txt) 
 
-    def randomizePanes(self):
-        if getattr(self.settings, 'randomize', False):
-            return """
-    var navitop = container.find(".navi.top li");
-    if ($(navitop).length > 0) {
-        var navitopParent = navitop.parent('ul');
-        navitop.detach();
-    }
-    var navibottom = container.find(".navi.bottom li");
-    if ($(navibottom).length > 0) {
-        var navitopParent = navitop.parent('ul');
-        navitop.detach();
-    }
-    var panes = container.find(".%(contentclass)s");
-    if ($(panes).length > 0) panes.detach();
-    var panesOrder = new Array();
-    for (i=0;i<$(panes).length;i++) {
-        panesOrder.push(i);
-    }
-    var n = panesOrder.length;
-    var tempArr = [];
-    for ( var i=0; i<n-1; i++ ) {
-        tempArr.push(panesOrder.splice(Math.floor(Math.random()*panesOrder.length),1)[0]);
-    }
-    tempArr.push(panesOrder[0]);
-    panesOrder=tempArr;
-    for (i=0;i<n;i++) {
-        s = panesOrder[i];
-        if ($(navitop).length > 0) {
-            $(navitop[s]).appendTo($(navitopParent));
-        }
-        if ($(navibottom).length > 0) {
-            $(navibottom[s]).appendTo($(navibottomParent));
-        }
-        if ($(panes).length > 0) {
-            $(panes[s]).appendTo(container.find(".items"));
-        }
-    }
-""" % {'contentclass':self.context.getId()+'-'+self.contentclass}
-        return ''
-
     def activateFlowView(self):
         return """
 function activateFlowView(container) {
@@ -178,212 +135,47 @@ function activateFlowView(container) {
         var container = $("#%(containerid)s");
     }
     if (container.length == 0) return false;
-    if (container.find("img").length > 0) {
-        container.find("img:last").one("load", function() {
-            runFlowView(container);
-        }).each(function() {
-            if(this.complete) $(this).load();
-        }).on("error", function(){
-            runFlowView(container);
-        });
-    } else {
-        runFlowView(container);
-    }
-}
-"""% {
-    'containerid':'flow_'+self.context.getId(),
-    }
-
-    def resizePages(self):
-        return """
-var pageContentHeight = %(height)s;
-function resizePages(container) {
-    if ($(window).height()<500) {
-        $('#solgemabandeau .page').css('height','300px');
-        $('#solgemabandeau .pageContent').css('height','300px');
-    } else if (pageContentHeight != null) {
-        $('#solgemabandeau .page').css('height', pageContentHeight+'px');
-        $('#solgemabandeau .pageContent').css('height', pageContentHeight+'px');
-    }
-    var panes = container.find(".page");
-    var contentWidth = container.find("#flowpanes_container #flowpanes").width();
-    var numitems = $(panes).first().find('.pageContent').length;
-    var batch_size = %(batch_size)i;
-    if ($( document ).width()<768) {
-      var batch_size = 1;
-    }
-    if (batch_size > 1) {
-        var rapport = (batch_size-1)/batch_size;
-    } else {
-        var rapport = 1;
-    }
-    var rapport = 1;
-    var page_width = contentWidth/batch_size;
-    var content_width = page_width/numitems;
-    $(panes).each( function(index) {
-        var page_marginWidth = $(this).outerWidth(true)-$(this).width();
-        var pagewidth = page_width-(page_marginWidth*rapport);
-        $(this).width(pagewidth);
-        $(this).children().each( function(index) {
-            var content_marginWidth = $(this).outerWidth(true)-$(this).width();
-            $(this).width( pagewidth-content_marginWidth );
-        });
-    });
-    var flowPanesHeight = 0;
-    $(panes).each( function(index) {
-        if( $(this).outerHeight(true) > flowPanesHeight) flowPanesHeight = $(this).outerHeight(true);
-        if($(this).children().length == 1) {
-            $(this).children().each( function(index, child) {
-                if( $(child).outerHeight(true) > flowPanesHeight) flowPanesHeight = $(child).outerHeight(true);
-            });
-        }
-    });
-    $(panes).each( function(index) {
-        var content_marginHeight = $(this).outerHeight(true)-$(this).height();
-        $(this).css("height", flowPanesHeight-content_marginHeight);
-        if($(this).children().length == 1) {
-            var content_marginHeight = $(this).outerHeight(true)-$(this).height();
-            $(this).css("height", flowPanesHeight-content_marginHeight);
-        }
-    });
-    container.find("#flowpanes").height(flowPanesHeight);
-    var tooldata = container.find("#flowpanes").data("%(tooldata)s");
-    if (tooldata) tooldata.next();
-    if (pageContentHeight == null) {
-        pageContentHeight = flowPanesHeight;
-    }
+    container.data("flowview", {batch_size:%(batch_size)i,
+                                contentclass:'%(contentclass)s',
+                                height:%(height)s,
+                                effect:'%(effect)s',
+                                tooldata:'%(tooldata)s',
+                                speed:'%(speed)s',
+                                fadeInSpeed:%(fadeInSpeed)s,
+                                fadeOutSpeed:%(fadeOutSpeed)s,
+                                vertical:%(vertical)s,
+                                current_extra_class:'%(current_extra_class)s',
+                                randomize:%(randomize)s,
+                                display_content_title:%(display_content_title)s,
+                                display_content_description:%(display_content_description)s,
+                                timed:%(timed)s,
+                                interval:'%(interval)s',
+                                autoplay:%(autoplay)s,
+                                autopause:%(autopause)s,
+                                });
 };
-""" % {'height':getattr(self.settings, 'height', None) and str(self.settings.height) or 'null',
-       'batch_size':self.settings.effect in ['swing', 'linear'] and getattr(self.settings, 'batch_size', 1) or 1,
-       'tooldata':self.settings.effect in ['default', 'fade', 'ajax', 'slide', 'custom'] and 'tabs' or 'scrollable'
-    }
-
-    def initTabs(self):
-        return """
-var panes_number = 0;
-function runFlowView(container) {
-    %(randomize)s
-    var panes = container.find(".page");
-    panes_number = $(panes).length;
-    if (panes_number == 0) return false;
-    containerid = container.attr('id');
-    var itemid = containerid.replace('flow_','');
-    var paneid = itemid+'-pane';
-    container.find(".documentActions").detach().insertBefore($("#portal-column-content #region-content:first"));
-    $(panes).each(function (index) {
-            %(js_remove_title)s
-            %(js_remove_description)s
-            $(this).find("#review-history").remove();
-            var lastP = $(this).find("p").last();
-            if ($(lastP).html() != null) {
-                if ($(lastP).html().trim() == '&nbsp;') {
-                    $(lastP).remove();
-                }
-            }
-    });
-    container.css("display","block").addClass("flowEnabled");
-    container.parent().addClass("flowEnabled");
-    var batch_size = %(batch_size)i;
-    if ($( document ).width()<768) {
-      var batch_size = 1;
-    }
-    if (batch_size > 1) {
-        container.addClass("batched");
-        container.addClass("manyItems");
-    }
-    $(panes).each( function(index) {
-        $(this).attr("id", paneid+index);
-    });
-    resizePages(container);
-    $(window).resize(function () {
-        //solgema.js needed!
-        waitForFinalEvent(function(){
-            resizePages(container);
-            }, 100, "resizePages"+containerid);
-    });
-    for (i=1;i<%(batch_size)i;i++) {
-        var cloned = container.find("#"+itemid+"-pane"+i).clone().addClass('cloned').appendTo("#flow_"+itemid+" #flowpanes .items:first");
-    }
-    %(effectjs)s
-""" % {
-    'randomize'            :self.randomizePanes(),
-    'effect'               :self.settings.effect,
-    'effectjs'             :self.settings.effect in ['default', 'fade', 'ajax', 'slide', 'custom'] and self.standardJavascript() or self.scrollableJavascript(),
-    'batch_size'           :self.settings.effect in ['swing', 'linear'] and getattr(self.settings, 'batch_size', 1) or 1,
-    'js_remove_title'      :not self.settings.display_content_title and """$(this).find("h1.documentFirstHeading:first, h2.tileHeadline:first").first().remove();""" or '',
-    'js_remove_description':not self.settings.display_content_description and """$(this).find("p.description:first, p.documentDescription:first").first().remove();""" or ''
-    }
-
-    def scrollableJavascript(self):
-        return """$("#"+containerid+" #flowtabs ul li a:first").addClass("current %(current_extra_class)s");
-    container.find("#flowpanes").scrollable({
-        circular   : true,
-        easing     : "%(effect)s",
-        speed      : %(speed)i,
-        vertical   : %(vertical)s,
-        next       : "#"+containerid+" .forward",
-        prev       : "#"+containerid+" .backward",
-//        mousewheel : true,
-        activeClass: "current %(current_extra_class)s"
-    })%(activateAutoscrollTimed)s.navigator({
-        navi       : "#"+containerid+" .navi ul",
-        naviItem   : "a",
-        activeClass: "current %(current_extra_class)s"
-    });
-};""" % {
-    'effect'                 :self.settings.effect,
-    'speed'                  :self.settings.speed,
-    'vertical'               :jsbool(self.settings.vertical),
-    'activateAutoscrollTimed':self.activateAutoscrollTimed(),
-    'current_extra_class'    :getattr(self.settings, 'current_extra_class', '')
-    }
-
-    def activateAutoscrollTimed(self):
-        if not self.settings.timed:
-            return ''
-        return """.autoscroll({
-    interval: %(interval)s,
-    autoplay: %(autoplay)s,
-    autopause: %(autopause)s,
-    })""" % {
+"""% {
+    'containerid' :'flow_'+self.context.getId(),
+    'contentclass':self.context.getId()+'-'+self.contentclass,
+    'batch_size'  :self.settings.effect in ['swing', 'linear'] and getattr(self.settings, 'batch_size', 1) or 1,
+    'height'      :getattr(self.settings, 'height', None) and str(self.settings.height) or 'null',
+    'effect'      :self.settings.effect,
+    'tooldata'    :self.settings.effect in ['default', 'fade', 'ajax', 'slide', 'custom'] and 'tabs' or 'scrollable',
+    'speed'       :self.settings.speed,
+    'fadeInSpeed' :str(self.settings.fadeInSpeed),
+    'fadeOutSpeed':str(self.settings.fadeOutSpeed),
+    'vertical'    :jsbool(self.settings.vertical),
+    'randomize'   :jsbool(getattr(self.settings, 'randomize', False)),
+    'current_extra_class':getattr(self.settings, 'current_extra_class', ''),
+    'display_content_title':jsbool(self.settings.display_content_title),
+    'display_content_description':jsbool(self.settings.display_content_description),
+    'timed':jsbool(self.settings.timed),
     'interval' :str(self.settings.interval),
     'autoplay' :jsbool(self.settings.autoplay),
     'autopause':jsbool(self.settings.autopause),
+    'use_backnext':jsbool(self.settings.use_backnext),
     }
 
-    def standardJavascript(self):
-        return """
-    $("#"+containerid+" .navi ul").tabs("#"+containerid+" .items:first > div",
-        {
-        rotate: true,
-        effect: "%(effect)s",
-        fadeInSpeed: %(fadeInSpeed)s,
-        fadeOutSpeed: %(fadeOutSpeed)s,
-    })%(activateTimed)s;
-};""" % {
-    'effect'               :self.settings.effect,
-    'speed'                :self.settings.speed,
-    'vertical'             :jsbool(self.settings.vertical),
-    'fadeInSpeed'          :str(self.settings.fadeInSpeed),
-    'fadeOutSpeed'         :str(self.settings.fadeOutSpeed),
-    'activateTimed'        :self.activateTimed()
-    }
-
-    def activateTimed(self):
-        if not self.settings.timed and not self.settings.use_backnext:
-            return ''
-        txt = '.slideshow({'
-        if self.settings.timed:
-            txt += """interval: "%(interval)i",
-    next     : "#"+containerid+" .forward",
-    prev     : "#"+containerid+" .backward",
-    autoplay : %(autoplay)s,
-    autopause: %(autopause)s,""" % {
-    'interval'   :self.settings.interval,
-    'autoplay'   :jsbool(self.settings.autoplay),
-    'autopause'  :jsbool(self.settings.autopause),
-    }
-        return txt+'})'
     
     def __call__(self):
         if self.settings.content_layout not in ['content', 'summary', 'banner', 'custom']:

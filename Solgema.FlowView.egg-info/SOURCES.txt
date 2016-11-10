@@ -92,4 +92,8 @@ Solgema/FlowView/profiles/plone5/types/Folder.xml
 Solgema/FlowView/profiles/uninstall/solgemaflowview_uninstall.txt
 Solgema/FlowView/profiles/uninstall4/cssregistry.xml
 Solgema/FlowView/profiles/uninstall4/jsregistry.xml
+Solgema/FlowView/profiles/uninstall5/registry.xml
+Solgema/FlowView/profiles/uninstall5/types.xml
+Solgema/FlowView/profiles/uninstall5/types/Collection.xml
+Solgema/FlowView/profiles/uninstall5/types/Folder.xml
 Solgema/FlowView/skins/solgemaflowview/solgemaflowview.css

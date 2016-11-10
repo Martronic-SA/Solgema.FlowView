@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: Solgema.FlowView
-Version: 1.0.5.post0
+Version: 1.0.6.post0
 Summary: Solgema
 Home-page: http://www.martronic.ch/Solgema/plone_products/solgema_flowview
 Author: Martronic SA
@@ -33,6 +33,12 @@ Description: Solgema.FlowView
         
         Changelog for Solgema.FlowView
         ------------------------------
+        
+        1.0.6
+        -----
+        - Remove the automatic marker for IFlowViewMarker as it causes CSRF protection issues
+        - Remove IFlowViewMarkerDX not used.
+        - Added uninstall profile for Plone 5
         
         1.0.5
         -----
