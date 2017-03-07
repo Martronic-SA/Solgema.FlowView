@@ -97,3 +97,9 @@ Solgema/FlowView/profiles/uninstall5/types.xml
 Solgema/FlowView/profiles/uninstall5/types/Collection.xml
 Solgema/FlowView/profiles/uninstall5/types/Folder.xml
 Solgema/FlowView/skins/solgemaflowview/solgemaflowview.css
+Solgema/FlowView/skins/solgemaflowview/solgemaflowview.js
+Solgema/FlowView/upgrades/__init__.py
+Solgema/FlowView/upgrades/configure.zcml
+Solgema/FlowView/upgrades/upgrades.py
+Solgema/FlowView/upgrades/profiles/upgrade108_plone4/jsregistry.xml
+Solgema/FlowView/upgrades/profiles/upgrade108_plone5/registry.xml

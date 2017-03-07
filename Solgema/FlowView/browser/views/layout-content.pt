@@ -43,8 +43,7 @@
                    display_more_link settings/display_more_link;
                    isAnon context/@@plone_portal_state/anonymous;
                    contextID here/getId;
-                   isAnon context/@@plone_portal_state/anonymous;
-                   show_about python:not isAnon or context.portal_registry['plone.allow_anon_views_about'];"
+                   show_about python:not isAnon or context.portal_registry.get('plone.allow_anon_views_about');"
     tal:attributes="id string:flow_${contextID};
                     class view/mainClass">
     <metal:block use-macro="context/folder_listing/macros/content-core">

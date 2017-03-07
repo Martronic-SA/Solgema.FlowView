@@ -55,8 +55,8 @@ class FlowViewSettingsForm(group.GroupForm, form.EditForm):
         fields['invocation_code'].field.description = _(u'You can add your custom javascript invocation code here. Leave blank to use default. Default code is: ${default_code}',
             mapping={'default_code':u"activateFlowView($('#flow_%s'));" % (self.context.id)})
         fieldsid = [field.field.__name__ for field in fields.values()]
-        main = plonegroup.GroupFactory(_pmf(u"label_choose_template"), fields.select(*[a for a in fieldsid if a not in self.contentFields+self.navigationFields]))
-        content = plonegroup.GroupFactory(_pmf(u"label_schema_default"), fields.select(*[a for a in fieldsid if a in self.contentFields]))
+        main = plonegroup.GroupFactory(_pmf(u"label_schema_default", default=u"Default"), fields.select(*[a for a in fieldsid if a not in self.contentFields+self.navigationFields]))
+        content = plonegroup.GroupFactory(_pmf(u"Content", default=u"Content"), fields.select(*[a for a in fieldsid if a in self.contentFields]))
         navigation = plonegroup.GroupFactory(_pmf(u"Navigation"), fields.select(*[a for a in fieldsid if a in self.navigationFields]))
         self.groups = [main, content, navigation]
         super(FlowViewSettingsForm, self).update()

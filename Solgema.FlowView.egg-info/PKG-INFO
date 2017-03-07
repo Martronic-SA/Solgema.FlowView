@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: Solgema.FlowView
-Version: 1.0.6.post0
+Version: 1.0.8.post0
 Summary: Solgema
 Home-page: http://www.martronic.ch/Solgema/plone_products/solgema_flowview
 Author: Martronic SA
@@ -33,6 +33,14 @@ Description: Solgema.FlowView
         
         Changelog for Solgema.FlowView
         ------------------------------
+        1.0.8
+        -----
+        - Whole javascript refactored. lighter and better handling of multiple flowview on a page.
+        
+        1.0.7
+        .....
+        - Add extra current class to standard tabs (fade, ...)
+        - remove allowAnonymousShowAbout
         
         1.0.6
         -----

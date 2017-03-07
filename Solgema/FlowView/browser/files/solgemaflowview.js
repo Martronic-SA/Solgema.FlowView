@@ -140,6 +140,12 @@ function resizePages(container) {
     });
     var flowPanesHeight = 0;
     $(panes).each( function(index) {
+        $(this).css("height", 'auto');
+        if($(this).children().length == 1) {
+            $(this).css("height", 'auto');
+        }
+    });
+    $(panes).each( function(index) {
         if( $(this).outerHeight(true) > flowPanesHeight) flowPanesHeight = $(this).outerHeight(true);
         if($(this).children().length == 1) {
             $(this).children().each( function(index, child) {
