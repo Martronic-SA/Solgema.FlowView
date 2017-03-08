@@ -124,7 +124,11 @@ class FlowView(FolderView):
             txt.append(self.settings.invocation_code)
         else:
             containerid = 'flow_'+self.context.getId()
-            txt.append('activateFlowView($("#'+containerid+'"));')
+            txt.append("""var target = document.documentElement;
+while (target.childNodes.length && target.lastChild.nodeType == 1) {
+    target = target.lastChild;
+}
+activateFlowView($(target).prev().children().first());""")
         txt.append("""</script>""")
         return '\n'.join(txt) 
 
